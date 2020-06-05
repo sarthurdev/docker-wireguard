@@ -130,6 +130,7 @@ Container images are configured using parameters passed at runtime (such as thos
 | `-e PEERS=1` | Number of peers to create confs for. Required for server mode. |
 | `-e PEERDNS=auto` | DNS server set in peer/client configs (can be set as `8.8.8.8`). Used in server mode. Defaults to `auto`, which uses wireguard docker host's DNS via included CoreDNS forward. |
 | `-e INTERNAL_SUBNET=10.13.13.0` | Internal subnet for the wireguard and server and peers (only change if it clashes). Used in server mode. |
+| `-e NAT=MASQUERADE` | Choose iptables nat POSTROUTING jump target. (Default: MASQUERADE) |
 | `-v /config` | Contains all relevant configuration files. |
 | `-v /lib/modules` | Maps host's modules folder. |
 | `--sysctl=` | Required for client mode. |
