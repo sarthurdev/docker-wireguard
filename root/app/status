@@ -1,0 +1,23 @@
+#!/bin/bash
+
+USERMAP_FILE=/config/usermap
+SED=""
+
+if [[ ! -f $USERMAP_FILE ]]; then
+    wg show
+    exit 0
+fi
+
+while IFS=':' read -r pkey alias
+do
+    if [ -z "$pkey" ] || [ "${pkey:0:1}" == "#" ]; then
+        continue
+    fi
+
+    pkey=$(echo $pkey | sed -e 's/[\/&\=]/\\&/g')
+    alias=$(echo $alias | sed -e 's/[\/&\=]/\\&/g')
+
+    SED="${SED} s/\(${pkey}\)/\1 (${alias})/g;"
+done <$USERMAP_FILE
+
+wg show | sed "${SED:1}"
